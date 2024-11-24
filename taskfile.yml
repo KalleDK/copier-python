@@ -1,8 +1,17 @@
 version: '3'
 
 tasks:
+  test:
+    cmds:
+      - uv run pytest
+  lint:
+    cmds:
+      - uv run ruff --config .config/.ruff.toml check
+  format:
+    cmds:
+      - uv run ruff --config .config/.ruff.toml format
   bump:
     vars:
       PART: '{{.CLI_ARGS | default "build"}}'
     cmds:
-      - bump-my-version bump --config-file .config/.bumpversion.toml {{ .PART }}
+      - uv run bump-my-version bump --config-file .config/.bumpversion.toml {{ .PART }}
