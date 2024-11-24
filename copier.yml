@@ -40,3 +40,7 @@ project_version:
     help: What is your project version?
     default: "0.1.1"
     when: false
+
+_tasks:
+    # Strings get executed under system's default shell
+    - "git init"
