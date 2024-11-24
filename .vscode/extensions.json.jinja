@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+        "ms-python.python",
+        "ms-python.vscode-pylance"{% if use_ruff %},
+        "charliermarsh.ruff"{% endif %}{% if use_editorconfig %},
+        "EditorConfig.EditorConfig"{% endif %}{%- if use_taskfile %},
+        "task.vscode-task"{% endif %}
+    ]
+}

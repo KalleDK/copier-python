@@ -1,14 +1,15 @@
-import tomllib
 import pathlib
+import tomllib
 
 from {{ module_slug }} import __version__
+{%- if use_bumpversion %}
 
 
 def test_version_bump():
     with pathlib.Path(".config", ".bumpversion.toml").open("rb") as fp:
         config = tomllib.load(fp)
 
-    assert __version__ == config["tool"]["bumpversion"]["current_version"]
+    assert __version__ == config["tool"]["bumpversion"]["current_version"]{% endif %}
 
 
 def test_version_project():

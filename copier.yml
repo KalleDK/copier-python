@@ -1,47 +1,77 @@
 # questions
 project_name:
-    type: str
-    help: What is your project name?
-    default: Example Project
+  type: str
+  help: What is your project name?
+  default: Example Project
 
 module_slug:
-    type: str
-    help: What is your Python module name?
-    default: "{{ project_name|lower|replace(' ', '.') }}"
+  type: str
+  help: What is your Python module name?
+  default: "{{ project_name|lower|replace(' ', '.') }}"
 
 pip_slug:
-    type: str
-    help: What is your pip package name?
-    default: "{{ project_name|lower|replace(' ', '-') }}"
+  type: str
+  help: What is your pip package name?
+  default: "{{ project_name|lower|replace(' ', '-') }}"
 
 git_slug:
-    type: str
-    help: What is your git repository name?
-    default: "py-{{ project_name|lower|replace(' ', '-') }}"
+  type: str
+  help: What is your git repository name?
+  default: "py-{{ project_name|lower|replace(' ', '-') }}"
 
 python_version:
-    type: str
-    help: What is the lowest supported Python version?
-    default: "3.13"
-    choices:
-        Python 3.13: "3.13"
-        Python 3.12: "3.12"
-        Python 3.11: "3.11"
-        Python 3.10: "3.10"
-        Python 3.9: "3.9"
+  type: str
+  help: What is the lowest supported Python version?
+  default: "3.13"
+  choices:
+    Python 3.13: "3.13"
+    Python 3.12: "3.12"
+    Python 3.11: "3.11"
+    Python 3.10: "3.10"
+    Python 3.9: "3.9"
 
 project_description:
-    type: str
-    help: What is your project description?
-    default: "A short description of your project."
+  type: str
+  help: What is your project description?
+  default: "A short description of your project."
 
 project_version:
-    type: str
-    help: What is your project version?
-    default: "0.1.1"
-    when: false
+  type: str
+  help: What is your project version?
+  default: "0.1.1"
+  when: false
+
+use_precommit:
+  type: bool
+  help: Do you want to use pre-commit?
+  default: true
+
+use_ruff:
+  type: bool
+  help: Do you want to use ruff for linting and formatting?
+  default: true
+
+use_taskfile:
+  type: bool
+  help: Do you want to use Taskfile for task management?
+  default: true
+
+use_bumpversion:
+  type: bool
+  help: Do you want to use bumpversion for versioning?
+  default: true
+
+use_editorconfig:
+  type: bool
+  help: Do you want to use EditorConfig for consistent coding styles?
+  default: false
 
 _tasks:
-    # Strings get executed under system's default shell
-    - "git init"
-    - "uv sync --group test"
+  - "uv sync --group test"
+  - "git init"
+  - command: "pre-commit install -c .config/.pre-commit-config.yaml"
+    when: use_precommit
+  - command: "pre-commit run -c .config/.pre-commit-config.yaml"
+    when: use_precommit
+  - "git add ."
+  - 'git commit -m "Base build"'

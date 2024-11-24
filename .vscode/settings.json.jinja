@@ -2,11 +2,12 @@
     "python.testing.pytestEnabled": true,
     "python.testing.pytestArgs": ["-c", "pyproject.toml"],
     "[python]": {
-        "editor.defaultFormatter": "charliermarsh.ruff",
+        {%- if use_ruff %}
+        "editor.defaultFormatter": "charliermarsh.ruff",{% endif %}
         "editor.formatOnSave": true,
         "editor.codeActionsOnSave": {
             "source.organizeImports": "explicit"
-        },
-    },
-    "ruff.configuration": ".config/.ruff.toml",
+        }
+    }{%- if use_ruff %},
+    "ruff.configuration": ".config/.ruff.toml"{% endif %}
 }

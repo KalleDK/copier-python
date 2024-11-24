@@ -1,0 +1,26 @@
+version: '3'
+
+tasks:
+  test:
+    cmds:
+      - uv run pytest -v
+  {%- if use_ruff %}
+  lint:
+    cmds:
+      - uv run ruff --config .config/.ruff.toml check
+  format:
+    cmds:
+      - uv run ruff --config .config/.ruff.toml format{% endif %}
+  {%- if use_precommit %}
+  precommit:
+    cmds:
+      - pre-commit run --config .config/.pre-commit-config.yaml --all-files
+  install-precommit:
+    cmds:
+      - pre-commit install --config .config/.pre-commit-config.yaml{% endif %}
+  {%- if use_bumpversion %}
+  bump:
+    vars:
+      PART: '{% raw %}{{.CLI_ARGS | default "build"}}{% endraw %}'
+    cmds:
+      - uv run bump-my-version bump --config-file .config/.bumpversion.toml {% raw %}{{ .PART }}{% endraw %}{% endif %}
