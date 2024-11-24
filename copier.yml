@@ -44,3 +44,4 @@ project_version:
 _tasks:
     # Strings get executed under system's default shell
     - "git init"
+    - "uv sync --group test"

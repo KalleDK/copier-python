@@ -1,0 +1,17 @@
+import tomllib
+import pathlib
+
+from {{ module_slug }} import __version__
+
+
+def test_version_bump():
+    with pathlib.Path(".config", ".bumpversion.toml").open("rb") as fp:
+        config = tomllib.load(fp)
+
+    assert __version__ == config["tool"]["bumpversion"]["current_version"]
+
+
+def test_version_project():
+    with pathlib.Path("pyproject.toml").open("rb") as fp:
+        config = tomllib.load(fp)
+    assert __version__ == config["project"]["version"]
