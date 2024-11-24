@@ -1,0 +1,15 @@
+[project]
+name = "{{ pip_slug }}"
+version = "0.1.0"
+description = "{{ project_description}}"
+readme = "README.md"
+requires-python = ">={{ python_version }}"
+dependencies = [
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/{{ module_slug.split('.')[0] }}"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

@@ -1,0 +1,8 @@
+version: '3'
+
+tasks:
+  bump:
+    vars:
+      PART: '{{.CLI_ARGS | default "build"}}'
+    cmds:
+      - bump-my-version bump --config-file .config/.bumpversion.toml {{ .PART }}

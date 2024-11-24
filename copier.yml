@@ -2,8 +2,35 @@
 project_name:
     type: str
     help: What is your project name?
+    default: Example Project
 
 module_slug:
     type: str
     help: What is your Python module name?
-    default: Flaf
+    default: "{{ project_name|lower|replace(' ', '.') }}"
+
+pip_slug:
+    type: str
+    help: What is your pip package name?
+    default: "{{ project_name|lower|replace(' ', '-') }}"
+
+git_slug:
+    type: str
+    help: What is your git repository name?
+    default: "py-{{ project_name|lower|replace(' ', '-') }}"
+
+python_version:
+    type: str
+    help: What is the lowest supported Python version?
+    default: "3.13"
+    choices:
+        Python 3.13: "3.13"
+        Python 3.12: "3.12"
+        Python 3.11: "3.11"
+        Python 3.10: "3.10"
+        Python 3.9: "3.9"
+
+project_description:
+    type: str
+    help: What is your project description?
+    default: "A short description of your project."
