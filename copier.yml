@@ -1,23 +1,29 @@
 # questions
+_answers_file: .copier-answers.yml
+_subdirectory: skeleton
+_jinja_extensions:
+- copier_templates_extensions.TemplateExtensionLoader
+- extensions.py:GitExtension
+
+full_name:
+  type: str
+  help: What is your full name?
+  default: "{{ 'John Doe' | git_user_name }}"
+
+email:
+  type: str
+  help: What is your email address?
+  default: "{{ 'test@example.com' | git_user_email }}"
+
 project_name:
   type: str
   help: What is your project name?
   default: Example Project
 
-module_slug:
+project_description:
   type: str
-  help: What is your Python module name?
-  default: "{{ project_name|lower|replace(' ', '.') }}"
-
-pip_slug:
-  type: str
-  help: What is your pip package name?
-  default: "{{ project_name|lower|replace(' ', '-') }}"
-
-git_slug:
-  type: str
-  help: What is your git repository name?
-  default: "py-{{ project_name|lower|replace(' ', '-') }}"
+  help: What is your project description?
+  default: "A short description of your project."
 
 python_version:
   type: str
@@ -30,48 +36,74 @@ python_version:
     Python 3.10: "3.10"
     Python 3.9: "3.9"
 
-project_description:
+module_slug:
   type: str
-  help: What is your project description?
-  default: "A short description of your project."
+  help: What is your Python module name?
+  default: "{{ project_name|lower|replace(' ', '.') }}"
+
+
+use_defaults:
+  type: bool
+  help: Do you want to use the default values?
+  default: true
+
+
+###########################################
+
+pip_slug:
+  type: str
+  help: What is your pip package name?
+  default: "{{ project_name|lower|replace(' ', '-') }}"
+  when: "{{ not use_defaults }}"
+
+git_slug:
+  type: str
+  help: What is your git repository name?
+  default: "py-{{ project_name|lower|replace(' ', '-') }}"
+  when: "{{ not use_defaults }}"
 
 project_version:
   type: str
   help: What is your project version?
-  default: "0.1.1"
-  when: false
+  default: "0.1.0"
+  when: "{{ not use_defaults }}"
 
 use_precommit:
   type: bool
   help: Do you want to use pre-commit?
   default: true
+  when: "{{ not use_defaults }}"
 
 use_ruff:
   type: bool
   help: Do you want to use ruff for linting and formatting?
   default: true
+  when: "{{ not use_defaults }}"
 
 use_taskfile:
   type: bool
   help: Do you want to use Taskfile for task management?
   default: true
+  when: "{{ not use_defaults }}"
 
 use_bumpversion:
   type: bool
   help: Do you want to use bumpversion for versioning?
   default: true
+  when: "{{ not use_defaults }}"
 
 use_editorconfig:
   type: bool
   help: Do you want to use EditorConfig for consistent coding styles?
-  default: false
+  default: true
+  when: "{{ not use_defaults }}"
 
 _tasks:
   - "uv sync --group test"
   - "git init"
-  - command: "pre-commit install -c .config/.pre-commit-config.yaml"
+  - command: "pre-commit install"
     when: use_precommit
-  - command: "pre-commit run -c .config/.pre-commit-config.yaml"
+  - command: "pre-commit run"
     when: use_precommit
   - "git add ."
   - 'git commit -m "Base build"'
