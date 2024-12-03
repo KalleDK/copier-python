@@ -23,4 +23,8 @@ tasks:
     vars:
       PART: '{% raw %}{{.CLI_ARGS | default "build"}}{% endraw %}'
     cmds:
-      - uv run bump-my-version bump {% raw %}{{ .PART }}{% endraw %}{% endif %}
+      - uv run bump-my-version bump {% raw %}{{ .PART }}{% endraw %}
+  devrel:
+    deps: [bump]
+    cmds:
+      - git push --follow-tags{% endif %}

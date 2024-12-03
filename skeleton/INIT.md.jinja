@@ -3,7 +3,18 @@
 ## Create Pypi Pending Publisher
 
 https://pypi.org/manage/account/publishing/
+* Project Name: {{ pip_slug }}
+* Owner: {{ gh_owner }}
+* Repository name: {{ git_slug }}
+* Workflow name: release.yml
+* Environment name: pypi
+
 https://test.pypi.org/manage/account/publishing/
+* Project Name: {{ pip_slug }}
+* Owner: {{ gh_owner }}
+* Repository name: {{ git_slug }}
+* Workflow name: testrelease.yml
+* Environment name: testpypi
 
 ## Create Github Repo
 ```sh
@@ -35,8 +46,10 @@ subprocess.run([
   "-f", "name=v*",
   "-f", "type=tag"
 ])
-' | python
+' | uv run python
 ```
+
+## Create Github Environment for Pypi Test
 
 ```sh
 echo '
@@ -61,5 +74,5 @@ subprocess.run([
   "-f", "name=v*",
   "-f", "type=tag"
 ])
-' | python
+' | uv run python
 ```
