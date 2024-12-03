@@ -5,7 +5,7 @@ _jinja_extensions:
 - copier_templates_extensions.TemplateExtensionLoader
 - extensions.py:CurrentYearExtension
 - extensions.py:GitExtension
-- extensoins.py:GithubExtension
+- extensions.py:GithubExtension
 
 full_name:
   type: str

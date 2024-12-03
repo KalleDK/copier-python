@@ -1,0 +1,12 @@
+version: '3'
+
+tasks:
+  bump:
+    vars:
+      PART: '{{.CLI_ARGS | default "build"}}'
+    cmds:
+      - bump-my-version bump {{ .PART }}
+  devrel:
+    deps: [bump]
+    cmds:
+      - git push --follow-tags
