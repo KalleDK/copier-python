@@ -14,12 +14,26 @@ def git_user_email(default: str) -> str:
 
 
 def github_user(default: str) -> str:
-    return (
-        subprocess.getoutput(
-            "gh api -H 'Accept: application/vnd.github+json' /user -q .login"
-        ).strip()
-        or default
-    )
+    try:
+        return (
+            subprocess.run(
+                [
+                    "gh",
+                    "api",
+                    "-H",
+                    "Accept: application/vnd.github+json",
+                    "/user",
+                    "-q",
+                    ".login",
+                ],
+                capture_output=True,
+            )
+            .stdout.strip()
+            .decode()
+            or default
+        )
+    except Exception:
+        return default
 
 
 class GitExtension(Extension):
