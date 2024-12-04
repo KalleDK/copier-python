@@ -177,11 +177,11 @@ copyright_license:
   - zlib License
 
 _tasks:
-  - "uv sync --group test"
-  - "git init"
-  - command: "pre-commit install"
+  - uv sync --group test
+  - git init
+  - command: pre-commit install
     when: use_precommit
-  - command: "pre-commit run"
+  - command: pre-commit run
     when: use_precommit
-  - "git add ."
-  - 'git commit -m "Base build"'
+  - git add .
+  - git commit -m "Base build"
