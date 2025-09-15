@@ -24,7 +24,7 @@ tasks:
     cmds:
       - task: bump
         vars:
-          PART: 'minor'
+          PART: 'patch'
       - git push --follow-tags
       - echo "Creating GitHub release..."
       - bump-my-version show scm_info.current_tag
