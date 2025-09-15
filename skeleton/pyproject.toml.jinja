@@ -37,6 +37,7 @@ exclude = ["**/__pycache__"]
 pythonVersion = "{{ python_version }}"
 
 {%- if use_ruff %}
+
 [tool.ruff]
 line-length = 120
 target-version = "py{{ python_version.replace('.', '') }}"
