@@ -177,11 +177,15 @@ copyright_license:
   - zlib License
 
 _tasks:
-  - uv sync --group test
-  - git init
+  - command: uv sync --group test
+    when: "{{ _copier_operation == 'copy' }}"
+  - command: git init
+    when: "{{ _copier_operation == 'copy' }}"
   - command: pre-commit install
-    when: use_precommit
+    when: use_precommit and _copier_operation == 'copy'
   - command: pre-commit run
-    when: use_precommit
-  - git add .
-  - git commit -m "Base build"
+    when: use_precommit and _copier_operation == 'copy'
+  - command: git add .
+    when: "{{ _copier_operation == 'copy' }}"
+  - command: git commit -m "Base build"
+    when: "{{ _copier_operation == 'copy' }}"
