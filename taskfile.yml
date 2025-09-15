@@ -28,5 +28,4 @@ tasks:
       - git push --follow-tags
       - echo "Creating GitHub release..."
       - bump-my-version show scm_info.current_tag
-      - sleep 5
       - gh release create $(bump-my-version show scm_info.current_tag) --generate-notes
