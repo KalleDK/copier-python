@@ -22,7 +22,9 @@ tasks:
       - git push --follow-tags
   release:
     cmds:
-      - task: bump PART=patch
+      - task: bump
+        vars:
+          PART: 'minor'
       - git push --follow-tags
       - echo "Creating GitHub release..."
       - gh release create $(bump-my-version current) --generate-notes
