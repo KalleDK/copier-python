@@ -1,6 +1,9 @@
 {
     "python.testing.pytestEnabled": true,
-    "python.testing.pytestArgs": ["-c", "pyproject.toml"],
+    "python.testing.pytestArgs": [
+        "-c",
+        "pyproject.toml"
+    ],
     "[python]": {
         {%- if use_ruff %}
         "editor.defaultFormatter": "charliermarsh.ruff",{% endif %}
