@@ -20,3 +20,9 @@ tasks:
       - if git commit --dry-run --short; then git commit -m "devrel"; else echo nothing changed; fi
       - task: bump
       - git push --follow-tags
+  release:
+    cmds:
+      - task: bump PART=patch
+      - git push --follow-tags
+      - echo "Creating GitHub release..."
+      - gh release create $(bump-my-version current) --generate-notes
