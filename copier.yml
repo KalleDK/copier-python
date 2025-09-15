@@ -189,5 +189,5 @@ _tasks:
     when: "{{ _copier_operation == 'copy' }}"
   - command: git commit -m "Base build"
     when: "{{ _copier_operation == 'copy' }}"
-  - command: git --no-pager diff || true
+  - command: git --no-pager diff || echo "changes"
     when: "{{ _copier_operation == 'update' }}"
