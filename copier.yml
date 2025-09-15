@@ -177,10 +177,14 @@ copyright_license:
   - zlib License
 
 _tasks:
+  - command: echo "FDSFDSFSD"
+    when: "{{ _copier_operation == 'copy' }}"
   - command: uv sync --group test
     when: "{{ _copier_operation == 'copy' }}"
   - command: git init
     when: "{{ _copier_operation == 'copy' }}"
+  - command: echo "FDSFDSFSD"
+    when: "{{ use_precommit and _copier_operation == 'copy' }}"
   - command: pre-commit install
     when: "{{ use_precommit and _copier_operation == 'copy' }}"
   - command: pre-commit run
