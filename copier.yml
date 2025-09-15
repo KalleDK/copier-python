@@ -182,9 +182,9 @@ _tasks:
   - command: git init
     when: "{{ _copier_operation == 'copy' }}"
   - command: pre-commit install
-    when: use_precommit and _copier_operation == 'copy'
+    when: "{{ use_precommit and _copier_operation == 'copy' }}"
   - command: pre-commit run
-    when: use_precommit and _copier_operation == 'copy'
+    when: "{{ use_precommit and _copier_operation == 'copy' }}"
   - command: git add .
     when: "{{ _copier_operation == 'copy' }}"
   - command: git commit -m "Base build"
