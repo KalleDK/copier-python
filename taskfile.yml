@@ -27,4 +27,4 @@ tasks:
           PART: 'minor'
       - git push --follow-tags
       - echo "Creating GitHub release..."
-      - gh release create $(bump-my-version show current_version) --generate-notes
+      - gh release create $(bump-my-version show scm_info.current_tag) --generate-notes
