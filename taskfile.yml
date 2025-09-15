@@ -1,9 +1,17 @@
 version: '3'
 
 tasks:
+  init:
+    cmds:
+      - echo "Initializing project..."
+      - uv venv --clear
+      - uv pip install -r requirements.txt
+      - pre-commit autoupdate
+      - pre-commit install
+      - pre-commit run -a
   bump:
     vars:
-      PART: '{{.CLI_ARGS | default "build"}}'
+      PART: '{{ .PART | default "build"}}'
     cmds:
       - bump-my-version bump {{ .PART }}
   devrel:
