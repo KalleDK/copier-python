@@ -27,6 +27,9 @@ jobs:
       - name: Build package
         run: uv build
 
+      - name: Test package
+        run: uv run pytest -v
+
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
