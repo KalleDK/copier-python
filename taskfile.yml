@@ -26,6 +26,3 @@ tasks:
         vars:
           PART: 'patch'
       - git push --follow-tags
-      - echo "Creating GitHub release..."
-      - bump-my-version show scm_info.current_tag
-      - gh release create $(bump-my-version show scm_info.current_tag) --generate-notes
