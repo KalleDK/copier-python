@@ -186,7 +186,7 @@ _tasks:
     when: "{{ use_precommit and _copier_operation == 'copy' }}"
   - command: git add .
     when: "{{ _copier_operation == 'copy' }}"
-  - command: pre-commit run -a
+  - command: pre-commit run -a || true
     when: "{{ use_precommit and _copier_operation == 'copy' }}"
   - command: git add .
     when: "{{ _copier_operation == 'copy' }}"
