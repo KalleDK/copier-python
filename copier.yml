@@ -98,7 +98,7 @@ use_bumpversion:
 use_editorconfig:
   type: bool
   help: Do you want to use EditorConfig for consistent coding styles?
-  default: true
+  default: false
   when: "{{ not use_defaults }}"
 
 use_github:
