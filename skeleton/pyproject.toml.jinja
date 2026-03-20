@@ -24,21 +24,20 @@ Repository = "https://github.com/{{gh_owner}}/{{git_slug}}.git"
 
 [dependency-groups]
 test = [
-    "pytest>=8.4.2",
+    "pytest>=9.0.2",
 ]
 stubs = []
 
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = ["uv_build>=0.9.10,<0.11.0"]
+build-backend = "uv_build"
 
-[tool.hatch.build.targets.wheel]
-packages = ["src/{{ module_slug.split('.')[0] }}"]
+[tool.uv.build-backend]
+module-name = "{{ module_slug }}"
 
 [tool.pyright]
 include = ["src", "tests", "examples"]
 typeCheckingMode = "strict"
-exclude = ["**/__pycache__"]
 pythonVersion = "{{ python_version }}"
 
 {%- if use_ruff %}
